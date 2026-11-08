@@ -1,0 +1,479 @@
+:root {
+  --honey: #f4b62c;
+  --honey-deep: #d9951a;
+  --honey-pale: #fbe3a0;
+  --cream: #fff8e6;
+  --brown: #c9a77c;
+  --brown-pale: #e8d3b3;
+  --ink: #4e3418;
+  --sage: #a9c48a;
+  --sage-deep: #5f8a45;
+  --header-height: 64px;
+  --font: "Fredoka", ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--cream) url("images/honeycomb.svg");
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: relative;
+  z-index: 3;
+  flex: none;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 16px;
+  background: var(--honey);
+}
+
+/* honey dripping off the bottom of the header */
+.site-header::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 44px;
+  margin-top: -1px;
+  background: url("images/honey-drip.svg") repeat-x;
+  pointer-events: none;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.brand img {
+  height: 40px;
+  width: auto;
+}
+
+.exit {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 18px 8px 12px;
+  border: none;
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--ink);
+  font: 500 1rem var(--font);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.exit:hover {
+  background: var(--brown-pale);
+  transform: translateX(-2px);
+}
+
+/* ---------- Two halves ---------- */
+.split {
+  flex: 1;
+  display: flex;
+}
+
+.left,
+.right {
+  position: relative;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 24px 32px;
+  overflow: hidden;
+}
+
+.left {
+  background: linear-gradient(160deg, rgba(251, 227, 160, 0.72), rgba(244, 182, 44, 0.42));
+}
+
+.right {
+  background: rgba(255, 248, 230, 0.62);
+}
+
+/* ---------- "The Bee's Workplace" ---------- */
+.logo-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 6.4vw, 6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  text-shadow: 0 3px 0 rgba(255, 248, 230, 0.8);
+}
+
+.line {
+  display: block;
+  white-space: pre;
+}
+
+.letter {
+  display: inline-block;
+  animation: letter-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i) * 70ms + 300ms);
+}
+
+@keyframes letter-in {
+  from {
+    opacity: 0;
+    color: var(--honey);
+    filter: blur(8px);
+    transform: translateY(0.55em) rotate(-10deg) scale(0.7);
+  }
+}
+
+.underline {
+  display: block;
+  width: 78%;
+  height: 22px;
+  margin: 10px auto 0;
+  overflow: visible;
+}
+
+.underline path {
+  fill: none;
+  stroke: var(--honey-deep);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  animation: draw-line 1.1s ease-in-out 1.7s both;
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Flowers ---------- */
+.flower {
+  position: absolute;
+  bottom: -14px;
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  animation: sway 5s ease-in-out infinite alternate;
+}
+
+.flower-a {
+  left: 6%;
+  height: 190px;
+}
+
+.flower-b {
+  left: 17%;
+  height: 130px;
+  animation-delay: -2s;
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+/* ---------- Login / Register card ---------- */
+.auth {
+  position: relative;
+  z-index: 2;
+  width: min(360px, 100%);
+  padding: 28px;
+  border: 3px solid var(--honey-pale);
+  border-radius: 36px;
+  background: var(--cream);
+  box-shadow: 0 14px 34px rgba(120, 82, 36, 0.22);
+  animation: card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+}
+
+/* Radios stay focusable so the tabs work from the keyboard */
+.auth > input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 22px;
+  padding: 5px;
+  border-radius: 999px;
+  background: var(--brown-pale);
+}
+
+.tabs label {
+  flex: 1;
+  padding: 9px;
+  border-radius: 999px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+#tab-login:checked ~ .tabs label[for="tab-login"],
+#tab-register:checked ~ .tabs label[for="tab-register"] {
+  background: var(--honey);
+  font-weight: 600;
+}
+
+#tab-login:focus-visible ~ .tabs label[for="tab-login"],
+#tab-register:focus-visible ~ .tabs label[for="tab-register"] {
+  outline: 3px solid var(--sage-deep);
+  outline-offset: 2px;
+}
+
+form {
+  display: none;
+}
+
+#tab-login:checked ~ #login-form,
+#tab-register:checked ~ #register-form {
+  display: block;
+  animation: form-in 0.35s ease-out;
+}
+
+@keyframes form-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+form label {
+  display: block;
+  margin: 0 0 4px 14px;
+  font-weight: 500;
+}
+
+form input {
+  display: block;
+  width: 100%;
+  padding: 11px 18px;
+  margin-bottom: 14px;
+  border: 2px solid var(--brown);
+  border-radius: 999px;
+  background: #fffdf6;
+  color: var(--ink);
+  font: 400 1rem var(--font);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+form input:focus {
+  border-color: var(--sage-deep);
+  box-shadow: 0 0 0 4px rgba(169, 196, 138, 0.5);
+}
+
+form button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  border: none;
+  border-radius: 999px;
+  background: var(--honey);
+  box-shadow: 0 5px 0 var(--honey-deep);
+  color: var(--ink);
+  font: 600 1.1rem var(--font);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+form button:hover {
+  background: #f8c548;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 var(--honey-deep);
+}
+
+form button:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--honey-deep);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--sage-deep);
+  outline-offset: 3px;
+}
+
+/* ---------- Bees ----------
+   The layer sits under the card and the header (z-index 1 vs 2 and 3),
+   so a bee can never be drawn on top of a button or a field. */
+#bee-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.bee-sprite {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  pointer-events: auto;
+  will-change: transform;
+}
+
+.bee-sprite img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Wings pivot on their root. Speed comes from --flap, set per bee. */
+.wing {
+  will-change: transform;
+  animation: var(--flap) linear infinite;
+}
+
+.wing-side {
+  animation-name: flap-side;
+}
+
+.wing-top-left {
+  animation-name: flap-top-left;
+}
+
+.wing-top-right {
+  animation-name: flap-top-right;
+}
+
+/* A faint copy half a beat behind reads as motion blur */
+.wing-ghost {
+  opacity: 0.4;
+  animation-delay: calc(var(--flap) / -2);
+}
+
+@keyframes flap-side {
+  0%, 100% {
+    transform: rotate(-24deg) scale(1, 1);
+  }
+  50% {
+    transform: rotate(26deg) scale(1, 0.72);
+  }
+}
+
+@keyframes flap-top-left {
+  0%, 100% {
+    transform: rotate(16deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(-22deg) scaleX(0.62);
+  }
+}
+
+@keyframes flap-top-right {
+  0%, 100% {
+    transform: rotate(-16deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(22deg) scaleX(0.62);
+  }
+}
+
+.bee-bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 12px;
+  border: 2px solid var(--brown);
+  border-radius: 999px;
+  background: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.bee-bubble.show {
+  opacity: 1;
+}
+
+/* ---------- Small screens: stack the halves ---------- */
+@media (max-width: 800px) {
+  .split {
+    flex-direction: column;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+  }
+
+  .left {
+    padding-block: 72px 48px;
+  }
+
+  .right {
+    flex: 1;
+  }
+
+  .flower {
+    display: none;
+  }
+}
+
+/* ---------- Respect "reduce motion" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .letter,
+  .underline path,
+  .auth,
+  .flower,
+  .wing,
+  #tab-login:checked ~ #login-form,
+  #tab-register:checked ~ #register-form {
+    animation: none;
+  }
+
+  .wing-ghost {
+    display: none;
+  }
+}
