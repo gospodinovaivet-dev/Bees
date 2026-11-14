@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeeWorkers - Fun Facts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="funfacts.css">
+  <script src="bees.js" defer></script>
+  <script src="site.js" defer></script>
+  <script src="trail.js" defer></script>
+  <script src="funfacts.js" defer></script>
+</head>
+<body class="main-page">
+  <!-- Page transition: lifts away when the page opens (see style.css) -->
+  <div class="curtain" aria-hidden="true"><img src="images/bees/bee-1.png" alt=""><span>Fun Facts</span></div>
+
+  <header class="site-header">
+    <!-- On this page the button goes back to the main page -->
+    <button type="button" class="exit" id="exit-button" data-exit-to="main.html">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <a class="brand" href="#top" data-scroll>
+      <img src="images/bees/bee-1.png" alt="">
+      <span>BeeWorkers</span>
+    </a>
+
+    <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="menu" id="site-menu" aria-label="Site">
+      <a href="main.html">Home</a>
+      <a href="main.html#about">About us</a>
+      <a href="main.html#bosses">Our boss</a>
+      <a href="main.html#team">Our workers</a>
+      <a href="main.html#hives">Our hives</a>
+      <a href="donations.html">Donations</a>
+      <a href="#top" data-scroll aria-current="page">Fun Facts</a>
+      <button type="button" class="logout" id="logout">Log out</button>
+    </nav>
+  </header>
+
+  <main class="journey" id="top">
+    <!-- ---------- Hero ---------- -->
+    <section class="hero">
+      <img class="flower flower-o" src="images/flowers/flower-6.png" alt="">
+      <img class="flower flower-p" src="images/flowers/flower-4.png" alt="">
+
+      <div class="hero-content panel" data-bee-avoid data-trail-start>
+        <p class="hello" id="hello" hidden></p>
+        <h1 id="title" aria-label="Buzz-worthy fun facts">
+          <span class="line">Buzz-worthy</span>
+          <span class="line">fun facts</span>
+        </h1>
+        <svg class="underline" viewBox="0 0 400 24" aria-hidden="true" preserveAspectRatio="none">
+          <path d="M6 14C60 2 100 22 160 12S270 4 394 12" pathLength="1"/>
+        </svg>
+
+        <p class="intro">
+          Bees are tiny, but they do giant things. Flip the cards, take a peek inside the
+          hive, and find out what would happen to our world if bees disappeared.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-honey" href="#facts" data-scroll>Flip the cards</a>
+          <a class="btn" href="#extinct" data-scroll>What if bees vanished?</a>
+        </div>
+      </div>
+
+      <a class="scroll-hint" href="#facts" data-scroll>
+        Let's go
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <section class="about">
+      <!-- ---------- Flip cards ---------- -->
+      <div class="about-part" id="facts">
+        <img class="flower flower-q" src="images/flowers/flower-11.png" alt="">
+
+        <div class="section-head panel" data-bee-avoid data-trail-cross>
+          <h2>Did you know?</h2>
+          <p>Guess the answer, then tap a card to flip it.</p>
+        </div>
+
+        <div class="flip-grid" data-bee-avoid>
+          <button type="button" class="flip">
+            <span class="front"><i>🌍</i>How far do bees fly to make one jar of honey?</span>
+            <span class="back"><b>About 88,000 km</b> for a 450 g jar. That's more than twice around the Earth!</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>🥄</i>How much honey does one bee make in her whole life?</span>
+            <span class="back"><b>About 1/12 of a teaspoon.</b> That's why it takes a whole team!</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>💨</i>How fast do a bee's wings beat?</span>
+            <span class="back"><b>Around 200 times every second.</b> That's what makes the buzz.</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>👀</i>How many eyes does a bee have?</span>
+            <span class="back"><b>Five!</b> Two big eyes on the sides and three tiny ones on top of the head.</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>🌈</i>Can bees see colours?</span>
+            <span class="back"><b>Yes, even ultraviolet,</b> which we can't see. But red looks almost black to them.</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>💃</i>How do bees tell each other where the flowers are?</span>
+            <span class="back"><b>They dance!</b> The "waggle dance" shows the other bees which way to fly and how far.</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>🏺</i>Does honey ever go bad?</span>
+            <span class="back"><b>Hardly ever.</b> Pots of honey thousands of years old have been found in ancient Egyptian tombs.</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>🐝</i>Can every bee sting?</span>
+            <span class="back"><b>No!</b> Male bees (drones) have no stinger at all. Only females can sting.</span>
+          </button>
+          <button type="button" class="flip">
+            <span class="front"><i>🌼</i>How many flowers does a bee visit on one trip?</span>
+            <span class="back"><b>50 to 100 flowers</b> before she flies home with her load.</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ---------- Inside the hive ---------- -->
+      <div class="about-part" id="inside">
+        <img class="flower flower-r" src="images/flowers/flower-12.png" alt="">
+
+        <div class="section-head panel" data-bee-avoid>
+          <h2>Inside the hive</h2>
+          <p>A hive is a busy bee base where everyone has a job. Here's what goes on inside.</p>
+        </div>
+
+        <ul class="hex-grid" data-bee-avoid>
+          <li><i>👑</i><b>The queen</b>can lay up to 2,000 eggs in a single day.</li>
+          <li><i>🐝</i><b>A big family</b>A strong hive can hold 20,000 to 60,000 bees in summer.</li>
+          <li><i>🌡️</i><b>Always 35 °C</b>Bees warm the nursery by shivering and cool it by fanning their wings.</li>
+          <li><i>⬡</i><b>Perfect shapes</b>Hexagon cells hold the most honey using the least wax.</li>
+          <li><i>🧹</i><b>Jobs by age</b>Young bees clean and feed babies, then build, guard, and finally fly out.</li>
+          <li><i>⏳</i><b>Short lives</b>Summer bees live about 6 weeks. Winter bees can live for months.</li>
+          <li><i>💧</i><b>Water carriers</b>On hot days bees bring water home to cool the hive down.</li>
+        </ul>
+      </div>
+
+      <!-- ---------- What if bees went extinct? ---------- -->
+      <div class="about-part" id="extinct">
+        <img class="flower flower-s" src="images/flowers/flower-13.png" alt="">
+
+        <div class="section-head panel" data-bee-avoid>
+          <h2>What if bees went extinct?</h2>
+          <p>
+            Bees aren't the only pollinators, but they're the most important ones. Without
+            them, our plates and our planet would look very different.
+          </p>
+        </div>
+
+        <div class="shelf panel" data-bee-avoid>
+          <div class="shelf-top">
+            <h3>Your shopping basket</h3>
+            <button type="button" class="btn btn-honey" id="bees-toggle" aria-pressed="false">🐝 Turn the bees off</button>
+          </div>
+          <ul class="shelf-items" id="shelf">
+            <li data-bees><i>🍎</i>Apples</li>
+            <li data-bees><i>🌰</i>Almonds</li>
+            <li data-bees><i>🫐</i>Blueberries</li>
+            <li data-bees><i>🍒</i>Cherries</li>
+            <li data-bees><i>🥑</i>Avocados</li>
+            <li data-bees><i>🍉</i>Watermelons</li>
+            <li data-bees><i>🥒</i>Cucumbers</li>
+            <li data-bees><i>🎃</i>Pumpkins</li>
+            <li data-bees><i>🍓</i>Strawberries</li>
+            <li data-bees><i>☕</i>Coffee</li>
+            <li data-bees><i>🍯</i>Honey</li>
+            <li><i>🍞</i>Bread</li>
+            <li><i>🍚</i>Rice</li>
+            <li><i>🌽</i>Corn</li>
+            <li><i>🥔</i>Potatoes</li>
+            <li><i>🍌</i>Bananas</li>
+          </ul>
+          <p class="shelf-note" id="shelf-note" aria-live="polite">Press the button to see what happens without bees.</p>
+        </div>
+
+        <ol class="chain" data-bee-avoid>
+          <li>
+            <b>Far fewer fruits and vegetables</b>
+            About 3 out of 4 kinds of food crops need pollinators, at least partly, to grow well.
+          </li>
+          <li>
+            <b>Food gets expensive</b>
+            What's left becomes rare, so prices for fruit, nuts and vegetables would shoot up.
+          </li>
+          <li>
+            <b>Less healthy meals</b>
+            We'd still have bread and rice, but lose many vitamins. One study (The Lancet, 2015)
+            estimated that losing all pollinators could cause about 1.4 million extra deaths
+            a year from poorer diets.
+          </li>
+          <li>
+            <b>Farm animals go hungry too</b>
+            Clover and alfalfa, important food for cows, are pollinated by bees. Less of them
+            means less milk and meat.
+          </li>
+          <li>
+            <b>Wild nature suffers</b>
+            Nearly 9 in 10 wild flowering plants need animals to pollinate them. Birds and
+            animals that eat their berries and seeds would lose their food.
+          </li>
+          <li>
+            <b>People would have to be the bees</b>
+            In parts of China, farmers already pollinate apple and pear trees by hand, flower
+            by flower. It's slow, tiring and very expensive.
+          </li>
+        </ol>
+
+        <aside class="myth panel" data-bee-avoid>
+          <p class="myth-tag">Myth buster</p>
+          <h3>"Einstein said people would only survive 4 years without bees."</h3>
+          <p>
+            <b>Not true!</b> There's no proof Einstein ever said it. But the real story above
+            is serious enough on its own.
+          </p>
+        </aside>
+      </div>
+
+      <!-- ---------- How you can help (the trail bee lands here) ---------- -->
+      <div class="about-part" id="help" data-trail-end data-trail-say="You can help us too!">
+        <div class="help panel" data-bee-avoid data-trail-band>
+          <h2>How you can help</h2>
+          <ul>
+            <li><i>🌸</i>Plant flowers, herbs or a little wildflower patch, even on a balcony.</li>
+            <li><i>🚫</i>Skip pesticides in your garden.</li>
+            <li><i>💧</i>Put out a shallow dish of water with pebbles for thirsty bees.</li>
+            <li><i>🏠</i>Hang up a bee hotel for wild solitary bees.</li>
+            <li><i>🍯</i>Buy honey from local beekeepers.</li>
+            <li><i>🙋</i>Come and help at one of our bee bases: plant, build and meet the bees!</li>
+          </ul>
+          <div class="hero-actions">
+            <button type="button" class="btn btn-honey" data-participate>Participate</button>
+            <a class="btn" href="donations.html">Donate to a new bee base</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Filled in by site.js (edit the bases and contacts there) -->
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <!-- The flying bees are added here by bees.js -->
+  <div id="bee-layer" aria-hidden="true"></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Wooden honey dipper -->
+  <defs><radialGradient id="bg" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#fff4dc"/><stop offset="1" stop-color="#f3dcae"/></radialGradient></defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="340" rx="130" ry="16" fill="#1c3a26" opacity=".14"/>
+  
+  <ellipse cx="140" cy="318" rx="70" ry="16" fill="#f4b62c" stroke="#d9951a" stroke-width="4"/>
+  <g transform="rotate(-38 200 200)">
+    <rect x="200" y="186" width="180" height="26" rx="13" fill="#c58a52" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <g fill="#d9a066" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round">
+      <rect x="60" y="150" width="34" height="98" rx="17"/>
+      <rect x="92" y="140" width="34" height="118" rx="17"/>
+      <rect x="124" y="140" width="34" height="118" rx="17"/>
+      <rect x="156" y="150" width="34" height="98" rx="17"/>
+    </g>
+    <rect x="186" y="180" width="30" height="38" rx="8" fill="#c58a52" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M66 166q60-20 120 0v30q-60 20-120 0z" fill="#f4b62c" opacity=".7"/>
+  </g>
+  <path d="M138 262c-2 18 2 34 2 46" stroke="#f4b62c" stroke-width="14" stroke-linecap="round"/>
+</svg>

@@ -48,8 +48,8 @@ const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const layer = document.getElementById("bee-layer");
 const header = document.querySelector(".site-header");
-// The card holds every button and field, so avoiding the card avoids them all.
-const avoidElements = [document.getElementById("auth"), document.getElementById("logo-text")];
+// Anything marked data-bee-avoid (cards, titles) is kept clear of bees.
+const avoidElements = [...document.querySelectorAll("[data-bee-avoid]")];
 
 const random = (min, max) => min + Math.random() * (max - min);
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -87,17 +87,28 @@ function pathIsClear(bee, x, y) {
   });
 }
 
+/* How far a spot is from every other bee and where they're heading */
+function roomFromOthers(bee, x, y) {
+  let room = Infinity;
+  bees.forEach((other) => {
+    if (other === bee || !other.entered) return;
+    room = Math.min(room, Math.hypot(other.x - x, other.y - y), Math.hypot(other.tx - x, other.ty - y));
+  });
+  return Math.min(room, 420);
+}
+
 /* Pick somewhere to fly that can be reached without crossing anything.
-   Of a few good options take the farthest, so bees roam instead of bunching up. */
+   Of a few good options prefer ones away from the other bees (and a longer trip),
+   so the bees spread over the page instead of bunching in one corner. */
 function pickTarget(bee) {
   const pad = bee.width / 2 + 8;
   const safe = bee.radius + CLEARANCE;
   let best = null;
-  let bestDistance = -1;
+  let bestScore = -1;
   let closest = null;
   let closestDistance = Infinity;
   let found = 0;
-  for (let tries = 0; tries < 60 && found < 5; tries++) {
+  for (let tries = 0; tries < 80 && found < 8; tries++) {
     const x = random(bounds.left + pad, Math.max(bounds.left + pad, bounds.right - pad));
     const y = random(bounds.top + pad, Math.max(bounds.top + pad, bounds.bottom - pad));
     if (!obstacles.every((r) => distanceToRect(x, y, r) >= safe)) continue;
@@ -108,9 +119,10 @@ function pickTarget(bee) {
     }
     if (!pathIsClear(bee, x, y)) continue;
     found++;
-    if (distance > bestDistance) {
+    const score = roomFromOthers(bee, x, y) + distance * 0.35;
+    if (score > bestScore) {
       best = { x, y };
-      bestDistance = distance;
+      bestScore = score;
     }
   }
   // Boxed in by a card that just grew: slip out to the nearest free spot.
@@ -144,27 +156,33 @@ function keepApart(dt) {
   }
 }
 
-function freeSpot(radius) {
+/* A free spot, inside one quarter of the screen when a corner is given */
+function freeSpot(radius, corner) {
+  const midX = (bounds.left + bounds.right) / 2;
+  const midY = (bounds.top + bounds.bottom) / 2;
+  const area = { left: bounds.left, right: bounds.right, top: bounds.top, bottom: bounds.bottom };
+  if (corner) {
+    if (corner.x < 0) area.right = midX; else area.left = midX;
+    if (corner.y < 0) area.bottom = midY; else area.top = midY;
+  }
   for (let tries = 0; tries < 200; tries++) {
-    const x = random(bounds.left + radius, Math.max(bounds.left + radius, bounds.right - radius));
-    const y = random(bounds.top + radius, Math.max(bounds.top + radius, bounds.bottom - radius));
+    const x = random(area.left + radius, Math.max(area.left + radius, area.right - radius));
+    const y = random(area.top + radius, Math.max(area.top + radius, area.bottom - radius));
     if (obstacles.every((r) => distanceToRect(x, y, r) >= radius + CLEARANCE)) return { x, y };
   }
-  return null;
+  return corner ? freeSpot(radius) : null;
 }
 
-function createBee(type) {
-  // Smaller on phones, where the gaps around the card are narrow
-  const scale = SIZE * random(0.85, 1.12) * (innerWidth < 800 ? 0.7 : 1);
-  const width = type.w * scale;
-  const height = type.h * scale;
+// Each bee flies in from its own corner of the screen
+const CORNERS = [
+  { x: -1, y: -1 },
+  { x: 1, y: -1 },
+  { x: -1, y: 1 },
+  { x: 1, y: 1 },
+];
 
-  const el = document.createElement("div");
-  el.className = "bee";
-  el.style.width = width + "px";
-  el.style.height = height + "px";
-  el.style.setProperty("--flap", random(0.1, 0.14).toFixed(3) + "s");
-
+/* A bee picture: the body plus flapping wings. Also used by main.js. */
+function buildSprite(type) {
   const sprite = document.createElement("div");
   sprite.className = "bee-sprite";
 
@@ -189,7 +207,23 @@ function createBee(type) {
   if (topView) addWings();
   addImage(`bee-${type.n}-body.png`);
   if (!topView) addWings();
+  return sprite;
+}
 
+function createBee(type, corner) {
+  // Smaller on phones, where the gaps around the card are narrow
+  const scale = SIZE * random(0.85, 1.12) * (innerWidth < 800 ? 0.7 : 1);
+  const width = type.w * scale;
+  const height = type.h * scale;
+
+  const el = document.createElement("div");
+  el.className = "bee";
+  el.style.width = width + "px";
+  el.style.height = height + "px";
+  el.style.setProperty("--flap", random(0.1, 0.14).toFixed(3) + "s");
+
+  const topView = type.facing === "up";
+  const sprite = buildSprite(type);
   const bubble = document.createElement("div");
   bubble.className = "bee-bubble";
 
@@ -197,16 +231,17 @@ function createBee(type) {
   layer.append(el);
 
   const radius = Math.hypot(width, height) / 2 * 0.8;
-  // Start just off screen, level with a free spot on the nearer side, and fly to it
-  const arrival = freeSpot(radius) || { x: innerWidth / 2, y: bounds.top + height };
-  const fromLeft = arrival.x < innerWidth / 2;
+  // Start just off screen at this bee's corner and fly to a free spot in that quarter
+  const arrival = freeSpot(radius, corner) || { x: innerWidth / 2, y: bounds.top + height };
+  const fromLeft = corner.x < 0;
+  const startY = corner.y < 0 ? bounds.top + height / 2 + 10 : innerHeight - height / 2 - 10;
   const bee = {
     el, sprite, bubble, width, height,
     topView,
     native: type.facing === "left" ? -1 : 1,
     radius,
     x: fromLeft ? -width : innerWidth + width,
-    y: arrival.y,
+    y: startY,
     vx: 0, vy: 0,
     tx: arrival.x, ty: arrival.y,
     speed: random(55, 95),
@@ -227,9 +262,76 @@ function createBee(type) {
 
   sprite.addEventListener("click", () => {
     bee.spin = 360;
-    say(bee, "Wheee!", 1600);
+    if (beeLink) inviteToFacts(bee);
+    else say(bee, "Wheee!", 1600);
   });
   return bee;
+}
+
+/* ---------- Click a bee: it invites you to the Fun Facts page ----------
+   Only on pages with <body data-bee-link="funfacts.html">. The bee stops, says
+   something, and a little "Fun Facts" pop-out appears next to it. It takes you
+   there by itself after a few seconds, or straight away if you click it. */
+const beeLink = document.body.dataset.beeLink;
+const INVITES = [
+  "Follow me!", "Let's see inside the hive!", "Psst… fun facts this way!",
+  "Wanna know a bee secret?", "Come, I'll show you something!", "Bee-lieve me, it's fun!",
+  "I know buzz-worthy facts!", "Did you know…? Follow me!", "This way, bzz bzz!",
+  "Fancy a hive tour?", "Let me show you around!", "Ready for some honey trivia?",
+];
+if (beeLink) CHATTER.push("Click me!", "Psst, click me!", "Catch me if you can!");
+
+let factsPop = null;
+let factsTimer = 0;
+
+function closeFactsPop() {
+  clearTimeout(factsTimer);
+  if (factsPop) factsPop.classList.remove("show");
+}
+
+/* Keep the pop-out next to its bee (called every frame while it shows), always fully on screen */
+function placeFactsPop() {
+  const pop = factsPop;
+  const bee = pop?.bee;
+  if (!bee) return;
+  const w = pop.offsetWidth || 200;
+  const h = pop.offsetHeight || 64;
+  const right = bee.drawX + bee.width / 2 + 14;
+  const x = right + w < innerWidth - 10 ? right : bee.drawX - bee.width / 2 - 14 - w;
+  pop.style.left = clamp(x, 10, innerWidth - w - 10).toFixed(1) + "px";
+  pop.style.top = clamp(bee.drawY + bee.height / 2 + 8, bounds.top, innerHeight - h - 10).toFixed(1) + "px";
+}
+
+function inviteToFacts(bee) {
+  say(bee, INVITES[Math.floor(Math.random() * INVITES.length)], 3600);
+  bee.hoverUntil = performance.now() + 3600; // stay put while you read
+
+  if (!factsPop) {
+    factsPop = document.createElement("div");
+    factsPop.className = "facts-pop";
+    factsPop.innerHTML = `
+      <a href="${beeLink}">
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Fun Facts
+      </a>
+      <button type="button" aria-label="No thanks">×</button>
+      <span class="facts-timer" aria-hidden="true"></span>`;
+    document.body.append(factsPop);
+    factsPop.querySelector("button").addEventListener("click", closeFactsPop);
+  }
+
+  const pop = factsPop;
+  pop.classList.remove("show");
+  pop.bee = bee;
+  placeFactsPop();
+  void pop.offsetWidth; // restart the pop-in and countdown animations
+  pop.classList.add("show");
+
+  clearTimeout(factsTimer);
+  factsTimer = setTimeout(() => {
+    pop.classList.remove("show");
+    goTo(beeLink);
+  }, calm ? 6000 : 4000);
 }
 
 /* ---------- Speech bubbles ---------- */
@@ -246,7 +348,7 @@ function nearestBee(el) {
   const r = el.getBoundingClientRect();
   const cx = (r.left + r.right) / 2;
   const cy = (r.top + r.bottom) / 2;
-  let best = bees[0];
+  let best = bees.find((bee) => bee.entered) || bees[0];
   let bestDistance = Infinity;
   bees.forEach((bee) => {
     const d = Math.hypot(bee.x - cx, bee.y - cy);
@@ -429,8 +531,11 @@ function chatter(now) {
 /* ---------- Start ---------- */
 measure();
 
-const beeCount = innerWidth < 800 ? 3 : innerWidth < 1200 ? 5 : BEE_TYPES.length;
-const bees = BEE_TYPES.slice().sort(() => Math.random() - 0.5).slice(0, beeCount).map(createBee);
+const shuffle = (list) => list.slice().sort(() => Math.random() - 0.5);
+// A page can ask for fewer bees with <body data-bees="3">
+const beeCount = Math.min(Number(document.body.dataset.bees) || 4, innerWidth < 800 ? 3 : 4);
+const corners = shuffle(CORNERS);
+const bees = shuffle(BEE_TYPES).slice(0, beeCount).map((type, i) => createBee(type, corners[i]));
 
 if (calm) {
   // Reduced motion: bees sit still in free spots and only talk when something happens
@@ -447,7 +552,8 @@ if (calm) {
   });
 } else {
   bees.forEach((bee, i) => {
-    bee.startAt = performance.now() + 1400 + i * 650; // arrive one by one after the title
+    // Arrive one by one after the title, at uneven times so they don't move in step
+    bee.startAt = performance.now() + 1400 + i * 1300 + random(0, 600);
   });
 }
 
@@ -461,19 +567,118 @@ function frame(now) {
     if (!calm && now >= bee.startAt) steer(bee, now, dt);
     draw(bee, now, dt);
   });
-  if (!calm) chatter(now);
+  if (!calm) {
+    chatter(now);
+    if (underline) waveUnderline(now);
+  }
+  if (factsPop?.classList.contains("show")) placeFactsPop();
   requestAnimationFrame(frame);
+}
+
+/* ---------- The yellow line under the title ripples like a ribbon ---------- */
+const underline = document.querySelector(".underline path");
+function waveUnderline(now) {
+  const t = now / 1000;
+  const points = 48;
+  let d = "";
+  for (let i = 0; i <= points; i++) {
+    const p = i / points;
+    const x = 6 + p * 388;
+    // Two slow waves travelling along the line, a little calmer at the ends
+    const y = 12
+      + Math.sin(p * Math.PI * 2.4 - t * 1.4) * 4.5 * (0.45 + 0.55 * Math.sin(p * Math.PI))
+      + Math.sin(p * Math.PI * 5 + t * 0.9) * 1.2;
+    d += `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(2)}`;
+  }
+  underline.setAttribute("d", d);
 }
 requestAnimationFrame(frame);
 
-/* ---------- Little reactions ---------- */
-document.querySelectorAll('input[type="password"]').forEach((input) => {
-  input.addEventListener("focus", () => say(nearestBee(input), "I'm not looking!", 2600));
-});
-
-document.querySelectorAll("[data-say]").forEach((button) => {
-  button.addEventListener("click", () => say(nearestBee(button), button.dataset.say, 2600));
-});
-
+/* ---------- Exit button ----------
+   Leave the site: go back to wherever the visitor came from,
+   or to a search page if this was the first page they opened.
+   (Moving between our own pages uses location.replace, so "back" leaves the site.) */
 const exitButton = document.getElementById("exit-button");
-exitButton.addEventListener("click", () => say(nearestBee(exitButton), "Bye-bye, bzz!", 2600));
+function leaveSite() {
+  const cameFromElsewhere = document.referrer && new URL(document.referrer).origin !== location.origin;
+  if (cameFromElsewhere || history.length > 1) {
+    history.back();
+    // If there was nothing to go back to, we're still here: leave anyway
+    setTimeout(() => location.assign("https://www.google.com"), 400);
+  } else {
+    location.assign("https://www.google.com");
+  }
+}
+
+if (exitButton) {
+  // data-exit-to="page.html" goes to that page instead of leaving the site,
+  // and data-logout also ends the (mock) login on the way out
+  const exitTo = exitButton.dataset.exitTo;
+  const logout = exitButton.hasAttribute("data-logout");
+  exitButton.addEventListener("click", () => {
+    exitButton.disabled = true;
+    say(nearestBee(exitButton), !exitTo ? "Bye-bye, bzz!" : logout ? "See you soon, bzz!" : "Back to the hive!", 2600);
+    if (!exitTo) return setTimeout(leaveSite, 600);
+    // Moving to another of our pages starts straight away
+    if (logout) writeStore(SESSION_KEY, null);
+    goTo(exitTo, { replace: logout });
+  });
+
+  // If the visitor comes back with the browser's Back button, make Exit usable again
+  addEventListener("pageshow", () => {
+    exitButton.disabled = false;
+  });
+}
+
+/* ---------- Page transitions ----------
+   Every page starts under a honey curtain showing its name, which lifts away (CSS).
+   Leaving drops the curtain back down first, so each page change is clearly visible. */
+const curtain = document.querySelector(".curtain");
+let leaving = false;
+
+function goTo(url, { replace = false } = {}) {
+  if (leaving) return;
+  leaving = true;
+  const go = () => (replace ? location.replace(url) : location.assign(url));
+  if (calm || !curtain) return go();
+  curtain.classList.add("closing");
+  setTimeout(go, 420);
+}
+
+// Coming back with the Back button: lift the curtain again
+addEventListener("pageshow", () => {
+  leaving = false;
+  if (curtain) curtain.classList.remove("closing");
+});
+
+// Plain links to our other pages go through the curtain too
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a[href]");
+  if (!link || event.defaultPrevented || link.classList.contains("soon") || link.target) return;
+  if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+  const url = new URL(link.href, location.href);
+  if (!url.pathname.endsWith(".html") || url.pathname === location.pathname) return;
+  event.preventDefault();
+  goTo(url.href);
+});
+
+/* ---------- Mock accounts (temporary, stored only in this browser) ---------- */
+const SESSION_KEY = "beeworkers-session";
+
+function readStore(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return value ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeStore(key, value) {
+  try {
+    if (value === null) localStorage.removeItem(key);
+    else localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Storage blocked (private window etc.): the mock login just won't be remembered
+  }
+}

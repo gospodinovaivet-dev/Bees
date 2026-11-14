@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Bee hotel for wild bees -->
+  <defs><radialGradient id="bg" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#fff4dc"/><stop offset="1" stop-color="#f3dcae"/></radialGradient></defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="340" rx="130" ry="16" fill="#1c3a26" opacity=".14"/>
+  
+  <rect x="120" y="150" width="160" height="180" rx="6" fill="#c58a52" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M96 160l104-90 104 90z" fill="#2c5539" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="136" y="166" width="128" height="148" fill="#8c5a2e" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  <g fill="#e8d3b3" stroke="#1c3a26" stroke-width="3">
+    <circle cx="156" cy="186" r="11"/><circle cx="184" cy="186" r="11"/><circle cx="212" cy="186" r="11"/><circle cx="240" cy="186" r="11"/><circle cx="156" cy="238" r="11"/><circle cx="184" cy="238" r="11"/><circle cx="212" cy="238" r="11"/><circle cx="240" cy="238" r="11"/><circle cx="156" cy="290" r="11"/><circle cx="184" cy="290" r="11"/><circle cx="212" cy="290" r="11"/><circle cx="240" cy="290" r="11"/>
+    <circle cx="170" cy="212" r="11"/><circle cx="198" cy="212" r="11"/><circle cx="226" cy="212" r="11"/><circle cx="170" cy="264" r="11"/><circle cx="198" cy="264" r="11"/><circle cx="226" cy="264" r="11"/>
+  </g>
+  <g fill="#6b4226">
+    <circle cx="156" cy="186" r="4"/><circle cx="212" cy="186" r="4"/><circle cx="198" cy="212" r="4"/>
+    <circle cx="184" cy="238" r="4"/><circle cx="240" cy="238" r="4"/><circle cx="170" cy="264" r="4"/>
+    <circle cx="226" cy="264" r="4"/><circle cx="212" cy="290" r="4"/>
+  </g>
+  <path d="M296 128q-30 10-42 36" fill="none" stroke="#d9951a" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round"/>
+  <g transform="translate(316 118) scale(1)">
+    <ellipse rx="22" ry="14" fill="#f4b62c" stroke="#1c3a26" stroke-width="4"/>
+    <path d="M-6-13v26M6-13v26" stroke="#1c3a26" stroke-width="5"/>
+    <ellipse cx="-2" cy="-22" rx="12" ry="9" fill="#fff" opacity=".9" stroke="#1c3a26" stroke-width="3"/>
+  </g>
+</svg>

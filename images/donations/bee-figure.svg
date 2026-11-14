@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Illustration of the handmade wooden bee figure gift (replace with a photo when you have one) -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+      <stop offset="0" stop-color="#fff4dc"/>
+      <stop offset="1" stop-color="#f3dcae"/>
+    </radialGradient>
+    <linearGradient id="wood" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#c58a52"/>
+      <stop offset="1" stop-color="#8c5a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#glow)"/>
+  <ellipse cx="200" cy="330" rx="130" ry="18" fill="#1c3a26" opacity=".15"/>
+
+  <!-- wooden base -->
+  <path d="M90 300h220v22c0 10-50 18-110 18s-110-8-110-18z" fill="#8c5a2e" stroke="#1c3a26" stroke-width="5"/>
+  <ellipse cx="200" cy="300" rx="110" ry="18" fill="url(#wood)" stroke="#1c3a26" stroke-width="5"/>
+  <path d="M130 300q70 10 140 0" fill="none" stroke="#6b4226" stroke-width="3" opacity=".6"/>
+
+  <!-- stand -->
+  <path d="M200 296v-46" stroke="#6b4226" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- back wing -->
+  <ellipse cx="226" cy="132" rx="38" ry="56" transform="rotate(25 226 132)" fill="#e9f3f6" stroke="#1c3a26" stroke-width="5" opacity=".95"/>
+
+  <!-- body -->
+  <ellipse cx="208" cy="206" rx="86" ry="58" fill="#f4b62c" stroke="#1c3a26" stroke-width="6"/>
+  <path d="M190 152c-14 34-14 74 0 110M226 150c-12 36-12 76 0 112" fill="none" stroke="#1c3a26" stroke-width="20"/>
+  <path d="M292 206l26 0" stroke="#1c3a26" stroke-width="7" stroke-linecap="round"/>
+  <!-- wood grain -->
+  <path d="M150 180q30-8 30 10M246 230q20 4 30-10" fill="none" stroke="#d9951a" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- head -->
+  <circle cx="122" cy="196" r="44" fill="#2b1d12" stroke="#1c3a26" stroke-width="6"/>
+  <circle cx="106" cy="186" r="11" fill="#fff"/>
+  <circle cx="104" cy="187" r="5" fill="#1c3a26"/>
+  <path d="M96 214q14 10 26 2" fill="none" stroke="#f4b62c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M110 156c-6-26-20-36-34-34M130 154c2-28 14-40 30-40" fill="none" stroke="#1c3a26" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="76" cy="122" r="8" fill="#f4b62c" stroke="#1c3a26" stroke-width="4"/>
+  <circle cx="160" cy="114" r="8" fill="#f4b62c" stroke="#1c3a26" stroke-width="4"/>
+
+  <!-- front wing -->
+  <ellipse cx="190" cy="126" rx="34" ry="54" transform="rotate(-12 190 126)" fill="#fff" stroke="#1c3a26" stroke-width="5" opacity=".95"/>
+  <path d="M184 92q8 30 6 66" fill="none" stroke="#9ad0e6" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- little heart tag -->
+  <path d="M296 270c-10-10-24 2-12 14l12 12 12-12c12-12-2-24-12-14z" fill="#ec5f9f" stroke="#1c3a26" stroke-width="4" stroke-linejoin="round"/>
+</svg>

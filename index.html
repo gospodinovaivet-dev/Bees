@@ -8,9 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <script src="bees.js" defer></script>
+  <script src="login.js" defer></script>
 </head>
-<body>
+<body class="login-page">
+  <!-- Page transition: lifts away when the page opens (see style.css) -->
+  <div class="curtain" aria-hidden="true"><img src="images/bees/bee-1.png" alt=""><span>Login</span></div>
+
   <header class="site-header">
     <button type="button" class="exit" id="exit-button">
       <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -24,9 +28,9 @@
 
   <main class="split">
     <section class="left">
-      <img class="flower flower-a" src="images/flower.svg" alt="">
-      <img class="flower flower-b" src="images/flower.svg" alt="">
-      <div class="logo-text" id="logo-text">
+      <img class="flower flower-a" src="images/flowers/flower-12.png" alt="">
+      <img class="flower flower-b" src="images/flowers/flower-4.png" alt="">
+      <div class="logo-text" id="logo-text" data-bee-avoid>
         <h1 id="title" aria-label="The Bee's Workplace">
           <span class="line">The Bee's</span>
           <span class="line">Workplace</span>
@@ -38,7 +42,8 @@
     </section>
 
     <section class="right">
-      <div class="auth" id="auth">
+      <img class="flower flower-c" src="images/flowers/flower-11.png" alt="">
+      <div class="auth" id="auth" data-bee-avoid>
         <input type="radio" name="tab" id="tab-login" checked>
         <input type="radio" name="tab" id="tab-register">
 
@@ -47,36 +52,47 @@
           <label for="tab-register">Register</label>
         </div>
 
-        <form id="login-form">
-          <label for="login-email">Email</label>
-          <input type="email" id="login-email" autocomplete="email">
+        <!-- login.js animates this box's height when switching tabs.
+             Each password field also gets a flower button that shows the password. -->
+        <div class="forms" id="forms">
+          <form id="login-form" class="active" novalidate>
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" name="login-email" autocomplete="email">
 
-          <label for="login-password">Password</label>
-          <input type="password" id="login-password" autocomplete="current-password">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="login-password" autocomplete="current-password">
 
-          <button type="button" data-say="Welcome to the hive!">Login</button>
-        </form>
+            <p class="form-message" aria-live="polite"></p>
+            <button type="submit">Login</button>
+          </form>
 
-        <form id="register-form">
-          <label for="register-name">Name</label>
-          <input type="text" id="register-name" autocomplete="name">
+          <form id="register-form" novalidate>
+            <label for="register-name">Name</label>
+            <input type="text" id="register-name" name="register-name" autocomplete="name">
 
-          <label for="register-email">Email</label>
-          <input type="email" id="register-email" autocomplete="email">
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" name="register-email" autocomplete="email">
 
-          <label for="register-password">Password</label>
-          <input type="password" id="register-password" autocomplete="new-password">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" name="register-password" autocomplete="new-password">
 
-          <label for="register-confirm">Confirm Password</label>
-          <input type="password" id="register-confirm" autocomplete="new-password">
+            <label for="register-confirm">Confirm Password</label>
+            <input type="password" id="register-confirm" name="register-confirm" autocomplete="new-password">
 
-          <button type="button" data-say="New worker bee!">Register</button>
-        </form>
+            <p class="form-message" aria-live="polite"></p>
+            <button type="submit">Register</button>
+          </form>
+        </div>
+
+        <!-- TEMPORARY: one-click mock account for testing. Remove before going live. -->
+        <button type="button" class="demo" id="demo-login">
+          Use demo account <span>temporary</span>
+        </button>
       </div>
     </section>
   </main>
 
-  <!-- The flying bees are added here by script.js -->
+  <!-- The flying bees are added here by bees.js -->
   <div id="bee-layer" aria-hidden="true"></div>
 </body>
 </html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeeWorkers - Donations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="donations.css">
+  <script src="bees.js" defer></script>
+  <script src="site.js" defer></script>
+  <script src="trail.js" defer></script>
+  <script src="donations.js" defer></script>
+</head>
+<!-- data-bee-link: clicking a flying bee invites you to that page -->
+<body class="main-page" data-bee-link="funfacts.html">
+  <!-- Page transition: lifts away when the page opens (see style.css) -->
+  <div class="curtain" aria-hidden="true"><img src="images/bees/bee-1.png" alt=""><span>Donations</span></div>
+
+  <header class="site-header">
+    <!-- On this page the button goes back to the main page -->
+    <button type="button" class="exit" id="exit-button" data-exit-to="main.html">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <a class="brand" href="#top" data-scroll>
+      <img src="images/bees/bee-1.png" alt="">
+      <span>BeeWorkers</span>
+    </a>
+
+    <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="menu" id="site-menu" aria-label="Site">
+      <a href="main.html">Home</a>
+      <a href="main.html#about">About us</a>
+      <a href="main.html#team">Our workers</a>
+      <a href="main.html#hives">Our hives</a>
+      <a href="#top" data-scroll aria-current="page">Donations</a>
+      <a href="funfacts.html">Fun Facts</a>
+      <button type="button" class="logout" id="logout">Log out</button>
+    </nav>
+  </header>
+
+  <!-- All amounts, totals and gifts below are made up: replace them with your own -->
+  <main class="journey" id="top">
+    <!-- ---------- Hero ---------- -->
+    <section class="hero">
+      <img class="flower flower-j" src="images/flowers/flower-3.png" alt="">
+      <img class="flower flower-k" src="images/flowers/flower-13.png" alt="">
+
+      <div class="hero-content panel" data-bee-avoid data-trail-start>
+        <p class="hello" id="hello" hidden></p>
+        <h1 id="title" aria-label="Help build a bee base">
+          <span class="line">Help build</span>
+          <span class="line">a bee base</span>
+        </h1>
+        <svg class="underline" viewBox="0 0 400 24" aria-hidden="true" preserveAspectRatio="none">
+          <path d="M6 14C60 2 100 22 160 12S270 4 394 12" pathLength="1"/>
+        </svg>
+
+        <p class="intro">
+          We're raising money for our fourth apiary: a new bee base with 10 hives in the
+          meadows by the river. Every euro goes straight into hives, bees and flowers,
+          and if you like, our bees will send you a sweet thank-you gift.
+        </p>
+
+        <div class="goal" data-raised="3240" data-target="6000" data-donors="87">
+          <div class="goal-bar"><span id="goal-fill"></span></div>
+          <p class="goal-text">
+            <strong id="goal-raised">€3,240</strong> raised of <strong>€6,000</strong>
+            · <span id="goal-donors">87</span> donors
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-honey" href="#gifts" data-scroll>See the gifts</a>
+          <a class="btn" href="#money" data-scroll>Where the money goes</a>
+        </div>
+      </div>
+
+      <a class="scroll-hint" href="#money" data-scroll>
+        Where it goes
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <section class="about">
+      <!-- ---------- Where the money goes ---------- -->
+      <div class="about-part" id="money">
+        <img class="flower flower-l" src="images/flowers/flower-8.png" alt="">
+
+        <div class="section-head panel" data-bee-avoid data-trail-cross>
+          <h2>Where your money goes</h2>
+          <p>
+            The new bee base costs €6,000 to set up. Here is everything on our shopping
+            list, and how each euro you give is shared out.
+          </p>
+        </div>
+
+        <div class="money-grid">
+          <article class="money-card" data-bee-avoid>
+            <h3>Every €10 you give</h3>
+            <ul class="split-bars">
+              <li style="--share: 30; --c: #f4b62c"><span>Hive boxes &amp; frames</span><b>€3.00</b></li>
+              <li style="--share: 25; --c: #d9951a"><span>Bee colonies</span><b>€2.50</b></li>
+              <li style="--share: 15; --c: #2c5539"><span>Solar hive sensors</span><b>€1.50</b></li>
+              <li style="--share: 10; --c: #ec5f9f"><span>Wildflower meadows</span><b>€1.00</b></li>
+              <li style="--share: 8; --c: #7fb3d5"><span>Stands &amp; water stations</span><b>€0.80</b></li>
+              <li style="--share: 7; --c: #9b6fe0"><span>Suits &amp; tools</span><b>€0.70</b></li>
+              <li style="--share: 5; --c: #5f8a45"><span>Bee health care</span><b>€0.50</b></li>
+            </ul>
+          </article>
+
+          <article class="money-card" data-bee-avoid>
+            <h3>The bee base shopping list</h3>
+            <table class="shopping">
+              <tbody>
+                <tr><td>🏠 10 hive boxes with frames</td><td>€1,800</td></tr>
+                <tr><td>🐝 10 bee colonies</td><td>€1,500</td></tr>
+                <tr><td>☀️ 10 solar hive sensors</td><td>€900</td></tr>
+                <tr><td>🌼 Wildflower seeds for 4,000 m²</td><td>€600</td></tr>
+                <tr><td>💧 Hive stands &amp; water stations</td><td>€480</td></tr>
+                <tr><td>🧤 Protective suits &amp; tools</td><td>€420</td></tr>
+                <tr><td>🩺 Health care for the first year</td><td>€300</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><td>Total</td><td>€6,000</td></tr>
+              </tfoot>
+            </table>
+          </article>
+        </div>
+      </div>
+
+      <!-- ---------- Thank-you shop ----------
+           The products and prices live in donations.js (PRODUCTS and BOXES) -->
+      <div class="about-part" id="gifts">
+        <img class="flower flower-m" src="images/flowers/flower-5.png" alt="">
+
+        <div class="section-head panel" data-bee-avoid>
+          <h2>Thank-you gifts</h2>
+          <p>
+            Give any amount you like. If you'd like something back, pick a mystery box or
+            choose your own gifts: then your donation is simply the total of what you pick.
+          </p>
+        </div>
+
+        <article class="box-card" data-bee-avoid>
+          <div class="gift-img"><img src="images/donations/mystery-box.svg" alt="Drawing of a green gift box with a honey-coloured ribbon and question marks"></div>
+          <div class="card-text">
+            <p class="price">from €10</p>
+            <h3>Mystery box</h3>
+            <p>Can't choose? Give what you like and we'll pack a surprise box of hive treats. The more you give, the more goes in.</p>
+            <ul class="box-tiers" id="box-tiers"></ul>
+            <button type="button" class="btn btn-honey" id="pick-box">Choose a mystery box</button>
+          </div>
+        </article>
+
+        <h3 class="shop-title">Or pick your own gifts</h3>
+        <div class="gift-grid" id="shop" data-bee-avoid></div>
+      </div>
+
+      <!-- ---------- Donate (the trail bee lands here) ---------- -->
+      <div class="about-part" id="donate" data-trail-end data-trail-say="Thank you for helping!">
+        <img class="flower flower-n" src="images/flowers/flower-9.png" alt="">
+
+        <form class="donate panel" id="donate-form" data-bee-avoid data-trail-band novalidate>
+          <h2>Make your donation</h2>
+          <p class="demo-note">Demo only: payments aren't connected yet, so no money is taken.</p>
+
+          <fieldset class="modes">
+            <legend>How would you like to give?</legend>
+            <label class="mode">
+              <input type="radio" name="mode" value="plain" checked>
+              <span><b>Just donate</b><small>Any amount, no gift needed.</small></span>
+            </label>
+            <label class="mode">
+              <input type="radio" name="mode" value="box">
+              <span><b>Mystery box</b><small>Give €10 or more, get a surprise box.</small></span>
+            </label>
+            <label class="mode">
+              <input type="radio" name="mode" value="gifts">
+              <span><b>Pick your gifts</b><small>You donate the total of what you pick.</small></span>
+            </label>
+          </fieldset>
+
+          <div class="mode-panel" data-mode="plain">
+            <fieldset class="amounts">
+              <legend>Pick an amount</legend>
+              <label><input type="radio" name="plain-amount" value="5"><span>€5</span></label>
+              <label><input type="radio" name="plain-amount" value="10" checked><span>€10</span></label>
+              <label><input type="radio" name="plain-amount" value="25"><span>€25</span></label>
+              <label><input type="radio" name="plain-amount" value="50"><span>€50</span></label>
+              <label class="custom"><span>Other €</span><input type="number" class="other" min="1" step="1" inputmode="numeric" aria-label="Other amount in euros"></label>
+            </fieldset>
+          </div>
+
+          <div class="mode-panel" data-mode="box" hidden>
+            <fieldset class="amounts">
+              <legend>Pick an amount (€10 or more)</legend>
+              <label><input type="radio" name="box-amount" value="15" checked><span>€15</span></label>
+              <label><input type="radio" name="box-amount" value="30"><span>€30</span></label>
+              <label><input type="radio" name="box-amount" value="60"><span>€60</span></label>
+              <label><input type="radio" name="box-amount" value="110"><span>€110</span></label>
+              <label class="custom"><span>Other €</span><input type="number" class="other" min="10" step="1" inputmode="numeric" aria-label="Other amount in euros"></label>
+            </fieldset>
+          </div>
+
+          <div class="mode-panel" data-mode="gifts" hidden>
+            <p class="cart-empty" id="cart-empty">No gifts picked yet. Press <b>Add</b> on any gift above.</p>
+            <ul class="cart" id="cart"></ul>
+            <label class="extra">
+              <span>Add a little extra (optional) €</span>
+              <input type="number" id="extra" min="0" step="1" inputmode="numeric">
+            </label>
+          </div>
+
+          <div class="summary" aria-live="polite">
+            <div>
+              <h3>You donate <span id="summary-amount">€10</span></h3>
+              <p id="summary-gift"></p>
+            </div>
+            <div>
+              <h3>Where it goes</h3>
+              <ul id="summary-split"></ul>
+            </div>
+          </div>
+
+          <div class="donor">
+            <label for="donor-name">Your name</label>
+            <input type="text" id="donor-name" autocomplete="name">
+            <label for="donor-email">Email <span id="email-why">(optional)</span></label>
+            <input type="email" id="donor-email" autocomplete="email">
+          </div>
+
+          <p class="form-message" id="donate-message" aria-live="polite"></p>
+          <button type="submit" class="btn btn-honey donate-button" id="donate-button">Donate €10</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Filled in by site.js (edit the bases and contacts there) -->
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <!-- The flying bees are added here by bees.js -->
+  <div id="bee-layer" aria-hidden="true"></div>
+</body>
+</html>

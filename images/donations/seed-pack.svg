@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Wildflower seed pack -->
+  <defs><radialGradient id="bg" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#fff4dc"/><stop offset="1" stop-color="#f3dcae"/></radialGradient></defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="340" rx="130" ry="16" fill="#1c3a26" opacity=".14"/>
+  
+  <g transform="rotate(-6 200 200)">
+    <path d="M110 70h180l10 20-10 20H110l-10-20z" fill="#e8d3b3" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="110" y="96" width="180" height="240" rx="10" fill="#fff4dc" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="126" y="112" width="148" height="140" rx="8" fill="#cfe6ef" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M126 220q74-30 148 0v24a8 8 0 0 1-8 8H134a8 8 0 0 1-8-8z" fill="#5f8a45"/>
+    <path d="M160 236v-46M200 236v-60M240 236v-40" stroke="#2c5539" stroke-width="4"/>
+    <g stroke="#1c3a26" stroke-width="3">
+      <circle cx="160" cy="184" r="13" fill="#ec5f9f"/>
+      <circle cx="200" cy="170" r="15" fill="#f4b62c"/>
+      <circle cx="240" cy="190" r="13" fill="#9b6fe0"/>
+    </g>
+    <text x="200" y="288" text-anchor="middle" font-family="Fredoka, Arial Rounded MT Bold, sans-serif" font-weight="700" font-size="24" fill="#1c3a26">WILDFLOWER</text>
+    <text x="200" y="316" text-anchor="middle" font-family="Fredoka, Arial Rounded MT Bold, sans-serif" font-weight="500" font-size="18" fill="#2c5539">seeds for bees</text>
+  </g>
+</svg>

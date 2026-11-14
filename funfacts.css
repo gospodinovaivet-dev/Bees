@@ -1,0 +1,401 @@
+/* Fun Facts page. Builds on style.css and main.css. */
+
+/* ---------- Flip cards ---------- */
+.flip-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.flip {
+  position: relative;
+  min-height: 200px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  perspective: 900px;
+}
+
+.flip .front,
+.flip .back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 22px;
+  border: 3px solid var(--forest);
+  border-radius: 28px;
+  box-shadow: 6px 8px 0 var(--forest);
+  font-size: 1.12rem;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.45, 0, 0.2, 1);
+}
+
+.flip .front {
+  background: var(--cream);
+}
+
+.flip .front i {
+  font-size: 2.6rem;
+  font-style: normal;
+}
+
+.flip .front::after {
+  content: "Tap to flip ↻";
+  font-size: 0.85rem;
+  color: var(--honey-deep);
+}
+
+.flip .back {
+  background: var(--forest);
+  color: var(--cream);
+  transform: rotateY(180deg);
+}
+
+.flip .back b {
+  display: block;
+  color: var(--honey);
+  font-size: 1.3rem;
+}
+
+.flip.flipped .front {
+  transform: rotateY(-180deg);
+}
+
+.flip.flipped .back {
+  transform: rotateY(0deg);
+}
+
+.flip:hover .front {
+  transform: rotate(-1.5deg) translateY(-4px);
+}
+
+.flip.flipped:hover .front {
+  transform: rotateY(-180deg);
+}
+
+.flip:focus-visible {
+  outline: none;
+}
+
+.flip:focus-visible .front,
+.flip:focus-visible .back {
+  outline: 3px solid var(--honey-deep);
+  outline-offset: 4px;
+}
+
+/* ---------- Inside the hive: honeycomb tiles ---------- */
+.hex-grid {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.hex-grid li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 230px;
+  aspect-ratio: 1 / 1.08;
+  padding: 26px 34px;
+  background: var(--honey);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  color: var(--night);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  text-align: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s;
+}
+
+.hex-grid li:nth-child(even) {
+  background: var(--honey-pale);
+}
+
+.hex-grid li:hover {
+  transform: scale(1.06) rotate(-2deg);
+  background: #f8c548;
+}
+
+.hex-grid i {
+  font-size: 2rem;
+  font-style: normal;
+}
+
+.hex-grid b {
+  display: block;
+  margin: 2px 0 4px;
+  color: var(--forest);
+  font-size: 1.1rem;
+}
+
+/* ---------- Basket: bees on / off ---------- */
+.shelf {
+  position: relative;
+  z-index: 2;
+  max-width: 1040px;
+  margin: 0 auto 40px;
+  padding: 26px 30px 24px;
+}
+
+.shelf-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.shelf-top h3 {
+  margin: 0;
+  color: var(--forest);
+  font-size: 1.5rem;
+}
+
+.shelf-top .btn {
+  border: none;
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+.shelf.no-bees .shelf-top .btn {
+  background: var(--forest);
+  color: var(--honey);
+}
+
+.shelf-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shelf-items li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 6px;
+  border: 2px solid var(--forest);
+  border-radius: 18px;
+  background: var(--honey-pale);
+  font-weight: 500;
+  transition: opacity 0.5s, transform 0.5s, filter 0.5s, background 0.5s;
+}
+
+.shelf-items i {
+  font-size: 2rem;
+  font-style: normal;
+}
+
+/* Without bees, these fade away one after another */
+.shelf.no-bees li[data-bees] {
+  opacity: 0.25;
+  filter: grayscale(1);
+  transform: scale(0.88) rotate(-4deg);
+  background: transparent;
+  text-decoration: line-through;
+  transition-delay: calc(var(--n, 0) * 60ms);
+}
+
+.shelf-note {
+  margin: 16px 0 0;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ---------- Domino chain ---------- */
+.chain {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  margin: 0 auto 40px;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.chain li {
+  position: relative;
+  margin: 0 0 18px 60px;
+  padding: 18px 22px;
+  border: 3px solid var(--forest);
+  border-radius: 24px;
+  background: var(--cream);
+  box-shadow: 6px 7px 0 var(--forest);
+  line-height: 1.55;
+  counter-increment: step;
+}
+
+.chain li::before {
+  content: counter(step);
+  position: absolute;
+  top: 14px;
+  left: -60px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--forest);
+  border-radius: 50%;
+  background: var(--honey);
+  color: var(--forest);
+  font-weight: 700;
+}
+
+/* The line linking the steps, like falling dominoes */
+.chain li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 56px;
+  bottom: -32px;
+  left: -40px;
+  border-left: 3px dashed var(--honey-deep);
+}
+
+.chain b {
+  display: block;
+  color: var(--forest);
+  font-size: 1.15rem;
+}
+
+/* ---------- Myth buster ---------- */
+.myth {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 30px 26px;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.myth-tag {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 3px 14px;
+  border-radius: 999px;
+  background: #b3261e;
+  color: #fff;
+  font-weight: 600;
+}
+
+.myth h3 {
+  margin: 0 0 8px;
+  color: var(--forest);
+  font-size: 1.3rem;
+  text-decoration: line-through;
+  text-decoration-color: #b3261e;
+  text-decoration-thickness: 3px;
+}
+
+.myth p:last-child {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ---------- How you can help ---------- */
+.help {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 30px 34px 34px;
+  text-align: center;
+}
+
+.help ul {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 24px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.help li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: var(--honey-pale);
+  font-weight: 500;
+}
+
+.help li i {
+  font-size: 1.5rem;
+  font-style: normal;
+}
+
+/* ---------- Flowers on this page ---------- */
+.flower-o {
+  left: 4%;
+  height: 190px;
+}
+
+.flower-p {
+  right: 4%;
+  height: 170px;
+  animation-delay: -2s;
+}
+
+.flower-q {
+  right: 3%;
+  height: 180px;
+  animation-delay: -3s;
+}
+
+.flower-r {
+  left: 3%;
+  height: 200px;
+  animation-delay: -1s;
+}
+
+.flower-s {
+  right: 4%;
+  height: 180px;
+  animation-delay: -2.5s;
+}
+
+@media (max-width: 700px) {
+  .hex-grid li {
+    width: 200px;
+  }
+
+  .chain li {
+    margin-left: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip .front,
+  .flip .back,
+  .hex-grid li,
+  .shelf-items li {
+    transition: none;
+  }
+}
