@@ -5,7 +5,10 @@
   --cream: #fff8e6;
   --brown: #c9a77c;
   --brown-pale: #e8d3b3;
-  --ink: #4e3418;
+  --ink: #14251a;
+  --forest: #1c3a26;
+  --forest-light: #2c5539;
+  --night: #0c150f;
   --sage: #a9c48a;
   --sage-deep: #5f8a45;
   --header-height: 64px;
@@ -37,6 +40,7 @@ body {
   justify-content: center;
   padding-inline: 16px;
   background: var(--honey);
+  border-bottom: 3px solid var(--forest);
 }
 
 /* honey dripping off the bottom of the header */
@@ -74,16 +78,34 @@ body {
   padding: 8px 18px 8px 12px;
   border: none;
   border-radius: 999px;
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--forest);
+  color: var(--cream);
   font: 500 1rem var(--font);
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .exit:hover {
-  background: var(--brown-pale);
-  transform: translateX(-2px);
+  background: var(--night);
+  color: var(--honey);
+  animation: exit-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.exit:active {
+  animation: none;
+  transform: scale(0.95);
+}
+
+@keyframes exit-pop {
+  0% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.16);
+  }
+  100% {
+    transform: scale(1.09);
+  }
 }
 
 /* ---------- Two halves ---------- */
@@ -103,12 +125,11 @@ body {
   overflow: hidden;
 }
 
-.left {
-  background: linear-gradient(160deg, rgba(251, 227, 160, 0.72), rgba(244, 182, 44, 0.42));
-}
-
+/* The card is pinned by its top edge, so switching to the taller Register
+   form only grows it downwards and the tabs stay exactly where they are */
 .right {
-  background: rgba(255, 248, 230, 0.62);
+  align-items: flex-start;
+  padding-top: clamp(56px, 11vh, 120px);
 }
 
 /* ---------- "The Bee's Workplace" ---------- */
@@ -123,7 +144,8 @@ h1 {
   font-size: clamp(2.8rem, 6.4vw, 6rem);
   font-weight: 700;
   line-height: 1.08;
-  text-shadow: 0 3px 0 rgba(255, 248, 230, 0.8);
+  color: var(--forest);
+  text-shadow: 0 4px 0 var(--honey);
 }
 
 .line {
@@ -133,8 +155,25 @@ h1 {
 
 .letter {
   display: inline-block;
-  animation: letter-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--i) * 70ms + 300ms);
+  /* Fly in, then keep gently rocking in place, rippling letter by letter */
+  animation:
+    letter-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+    letter-float 4.2s ease-in-out infinite;
+  animation-delay:
+    calc(var(--i) * 70ms + 300ms),
+    calc(var(--i) * 70ms + 1500ms);
+}
+
+@keyframes letter-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-0.07em) rotate(-4deg);
+  }
+  75% {
+    transform: translateY(0.03em) rotate(3deg);
+  }
 }
 
 @keyframes letter-in {
@@ -182,14 +221,20 @@ h1 {
 }
 
 .flower-a {
-  left: 6%;
-  height: 190px;
+  left: 5%;
+  height: 210px;
 }
 
 .flower-b {
-  left: 17%;
-  height: 130px;
+  left: 18%;
+  height: 160px;
   animation-delay: -2s;
+}
+
+.flower-c {
+  right: 5%;
+  height: 170px;
+  animation-delay: -3.5s;
 }
 
 @keyframes sway {
@@ -207,10 +252,10 @@ h1 {
   z-index: 2;
   width: min(360px, 100%);
   padding: 28px;
-  border: 3px solid var(--honey-pale);
+  border: 3px solid var(--forest);
   border-radius: 36px;
   background: var(--cream);
-  box-shadow: 0 14px 34px rgba(120, 82, 36, 0.22);
+  box-shadow: 8px 10px 0 var(--forest);
   animation: card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
 }
 
@@ -229,50 +274,121 @@ h1 {
 }
 
 .tabs {
+  position: relative;
   display: flex;
-  gap: 4px;
   margin-bottom: 22px;
   padding: 5px;
   border-radius: 999px;
-  background: var(--brown-pale);
+  background: var(--forest);
+}
+
+/* The honey pill slides between the two tabs */
+.tabs::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc(50% - 5px);
+  border-radius: 999px;
+  background: var(--honey);
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+#tab-register:checked ~ .tabs::before {
+  transform: translateX(100%);
 }
 
 .tabs label {
+  position: relative;
   flex: 1;
   padding: 9px;
   border-radius: 999px;
-  font-weight: 500;
+  color: var(--cream);
+  font-weight: 600;
   text-align: center;
   cursor: pointer;
-  transition: background 0.25s;
+  transition: color 0.35s;
 }
 
 #tab-login:checked ~ .tabs label[for="tab-login"],
 #tab-register:checked ~ .tabs label[for="tab-register"] {
-  background: var(--honey);
-  font-weight: 600;
+  color: var(--night);
 }
 
 #tab-login:focus-visible ~ .tabs label[for="tab-login"],
 #tab-register:focus-visible ~ .tabs label[for="tab-register"] {
-  outline: 3px solid var(--sage-deep);
+  outline: 3px solid var(--honey-deep);
   outline-offset: 2px;
 }
 
-form {
+/* Room around the forms so focus rings and button shadows aren't clipped
+   while login.js animates the box's height */
+.forms {
+  margin: -6px -6px -12px;
+  padding: 6px 6px 12px;
+}
+
+/* login.js moves "active" between the forms and animates the switch */
+.forms > form {
   display: none;
 }
 
-#tab-login:checked ~ #login-form,
-#tab-register:checked ~ #register-form {
+.forms > form.active {
   display: block;
-  animation: form-in 0.35s ease-out;
 }
 
-@keyframes form-in {
-  from {
+.form-message {
+  min-height: 1.3em;
+  margin: -4px 0 6px 14px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #b3261e;
+}
+
+.form-message[data-kind="ok"] {
+  color: var(--forest-light);
+}
+
+/* TEMPORARY demo login */
+.demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 9px 12px;
+  border: 2px dashed var(--forest-light);
+  border-radius: 999px;
+  background: none;
+  color: var(--forest);
+  font: 500 0.95rem var(--font);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.demo:hover {
+  background: var(--honey-pale);
+}
+
+.demo span {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--honey);
+  font-size: 0.75rem;
+}
+
+/* Logged in: the card flies off before the main page opens */
+.auth.leaving {
+  animation: card-out 0.7s cubic-bezier(0.55, 0, 0.75, 0.2) 0.2s forwards;
+}
+
+@keyframes card-out {
+  to {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(-30px) scale(0.92);
   }
 }
 
@@ -287,7 +403,7 @@ form input {
   width: 100%;
   padding: 11px 18px;
   margin-bottom: 14px;
-  border: 2px solid var(--brown);
+  border: 2px solid var(--forest-light);
   border-radius: 999px;
   background: #fffdf6;
   color: var(--ink);
@@ -297,37 +413,151 @@ form input {
 }
 
 form input:focus {
-  border-color: var(--sage-deep);
-  box-shadow: 0 0 0 4px rgba(169, 196, 138, 0.5);
+  border-color: var(--night);
+  box-shadow: 0 0 0 4px rgba(244, 182, 44, 0.55);
 }
 
-form button {
+/* ---------- Password flower: a bud that blooms to show the password ---------- */
+.password-field {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.password-field input {
+  margin-bottom: 0;
+  padding-right: 52px;
+}
+
+.peek {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  /* Hidden until the field is in use */
+  opacity: 0;
+  transform: scale(0.3);
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.password-field:focus-within .peek,
+.password-field.has-text .peek {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.peek svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.peek svg * {
+  transform-box: view-box;
+  transform-origin: 16px 16px;
+}
+
+.peek .petal {
+  fill: #ec5f9f;
+  stroke: var(--forest);
+  stroke-width: 1.2;
+  /* Bud: petals folded together, pointing up */
+  transform: rotate(var(--bud)) scale(0.55);
+  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+  transition-delay: calc(var(--n) * 30ms);
+}
+
+.peek .middle {
+  fill: var(--honey);
+  stroke: var(--forest);
+  stroke-width: 1.2;
+  transform: scale(0);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.peek .sepal,
+.peek .stem {
+  transition: opacity 0.3s, transform 0.4s;
+}
+
+.peek .sepal {
+  fill: var(--sage-deep);
+  stroke: var(--forest);
+  stroke-width: 1.2;
+}
+
+.peek .stem {
+  fill: none;
+  stroke: var(--forest);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* In bloom: petals open all the way round, centre pops in */
+.peek[aria-pressed="true"] .petal {
+  transform: rotate(var(--open)) scale(1);
+}
+
+.peek[aria-pressed="true"] .middle {
+  transform: scale(1);
+  transition-delay: 0.2s;
+}
+
+.peek[aria-pressed="true"] .sepal,
+.peek[aria-pressed="true"] .stem {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.peek:hover svg {
+  animation: bud-wiggle 0.6s ease-in-out;
+}
+
+@keyframes bud-wiggle {
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+form > button {
   width: 100%;
   margin-top: 8px;
   padding: 12px;
   border: none;
   border-radius: 999px;
-  background: var(--honey);
-  box-shadow: 0 5px 0 var(--honey-deep);
-  color: var(--ink);
+  background: var(--forest);
+  box-shadow: 0 5px 0 var(--night);
+  color: var(--honey);
   font: 600 1.1rem var(--font);
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
-form button:hover {
-  background: #f8c548;
+form > button:hover {
+  background: var(--forest-light);
   transform: translateY(-2px);
-  box-shadow: 0 7px 0 var(--honey-deep);
+  box-shadow: 0 7px 0 var(--night);
 }
 
-form button:active {
+form > button:active {
   transform: translateY(4px);
-  box-shadow: 0 1px 0 var(--honey-deep);
+  box-shadow: 0 1px 0 var(--night);
 }
 
 button:focus-visible {
-  outline: 3px solid var(--sage-deep);
+  outline: 3px solid var(--honey-deep);
   outline-offset: 3px;
 }
 
@@ -423,7 +653,7 @@ button:focus-visible {
   top: 0;
   left: 0;
   padding: 5px 12px;
-  border: 2px solid var(--brown);
+  border: 2px solid var(--forest);
   border-radius: 999px;
   background: var(--cream);
   font-size: 0.95rem;
@@ -465,15 +695,212 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .letter,
   .underline path,
+  .exit:hover,
   .auth,
   .flower,
   .wing,
-  #tab-login:checked ~ #login-form,
-  #tab-register:checked ~ #register-form {
+  .peek:hover svg {
     animation: none;
+  }
+
+  .tabs::before,
+  .peek,
+  .peek svg * {
+    transition: none;
   }
 
   .wing-ghost {
     display: none;
+  }
+}
+
+/* ---------- Page transition curtain ----------
+   Covers the page when it opens, then lifts away (with a honey drip on its edge).
+   bees.js adds .closing to drop it again before going to another page. */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--honey);
+  pointer-events: none;
+  animation: curtain-lift 0.6s cubic-bezier(0.7, 0, 0.3, 1) 0.12s both;
+}
+
+.curtain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("images/honeycomb.svg");
+  opacity: 0.3;
+}
+
+.curtain::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 44px;
+  margin-top: -1px;
+  background: url("images/honey-drip.svg") repeat-x;
+}
+
+.curtain img {
+  position: relative;
+  width: 96px;
+  animation: curtain-bee 0.5s ease-in-out infinite alternate;
+}
+
+.curtain span {
+  position: relative;
+  padding: 6px 28px 10px;
+  border: 3px solid var(--forest);
+  border-radius: 999px;
+  background: var(--cream);
+  box-shadow: 6px 7px 0 var(--forest);
+  color: var(--forest);
+  font: 700 clamp(1.8rem, 4.5vw, 3rem) var(--font);
+}
+
+.curtain.closing {
+  pointer-events: auto;
+  animation: curtain-drop 0.42s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+}
+
+@keyframes curtain-lift {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateY(calc(-100% - 50px));
+  }
+}
+
+@keyframes curtain-drop {
+  from {
+    transform: translateY(calc(-100% - 50px));
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes curtain-bee {
+  from {
+    transform: translateY(-6px) rotate(-6deg);
+  }
+  to {
+    transform: translateY(6px) rotate(6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain {
+    display: none;
+  }
+}
+
+/* ---------- "Fun Facts" pop-out from a clicked bee (bees.js) ---------- */
+.facts-pop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  padding: 6px 6px 10px 8px;
+  border: 3px solid var(--forest);
+  border-radius: 22px;
+  background: var(--honey);
+  box-shadow: 5px 6px 0 var(--forest);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.5) rotate(-6deg);
+  transition: opacity 0.2s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.facts-pop.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.facts-pop a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  color: var(--night);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.facts-pop a:hover {
+  background: var(--honey-pale);
+}
+
+.facts-pop.show svg {
+  animation: arrow-nudge 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes arrow-nudge {
+  to {
+    transform: translateX(5px);
+  }
+}
+
+.facts-pop button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 2px solid var(--forest);
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--forest);
+  font: 700 1.1rem/1 var(--font);
+  cursor: pointer;
+}
+
+/* Runs down until the bee takes you there */
+.facts-timer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  width: 100%;
+  background: var(--forest);
+  transform-origin: left;
+}
+
+.facts-pop.show .facts-timer {
+  animation: facts-countdown 4s linear forwards;
+}
+
+@keyframes facts-countdown {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .facts-pop {
+    transition: none;
+  }
+
+  .facts-pop.show svg {
+    animation: none;
+  }
+
+  .facts-pop.show .facts-timer {
+    animation-duration: 6s;
   }
 }

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Name a hive certificate -->
+  <defs><radialGradient id="bg" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#fff4dc"/><stop offset="1" stop-color="#f3dcae"/></radialGradient></defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="340" rx="130" ry="16" fill="#1c3a26" opacity=".14"/>
+  
+  <g transform="rotate(4 200 200)">
+    <rect x="80" y="70" width="240" height="270" rx="12" fill="#fffdf6" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="96" y="86" width="208" height="238" rx="8" fill="none" stroke="#d9951a" stroke-width="3" stroke-dasharray="10 6"/>
+    <text x="200" y="128" text-anchor="middle" font-family="Fredoka, Arial Rounded MT Bold, sans-serif" font-weight="700" font-size="24" fill="#1c3a26">This hive is</text>
+    <text x="200" y="156" text-anchor="middle" font-family="Fredoka, Arial Rounded MT Bold, sans-serif" font-weight="700" font-size="24" fill="#1c3a26">named after</text>
+    <text x="200" y="188" text-anchor="middle" font-family="Brush Script MT, cursive" font-size="32" fill="#d9951a">You!</text>
+    <path d="M128 196h144" stroke="#1c3a26" stroke-width="3"/>
+    <rect x="166" y="222" width="68" height="30" rx="4" fill="#f4b62c" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="166" y="252" width="68" height="30" rx="4" fill="#fbe3a0" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="158" y="212" width="84" height="12" rx="3" fill="#2c5539" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(290 300)">
+    <path d="M-16 10l-10 40 16-8 10 14 6-42zM16 10l10 40-16-8-10 14-6-42z" fill="#ec5f9f" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+    <circle r="30" fill="#f4b62c" stroke="#1c3a26" stroke-width="5"/>
+    <circle r="19" fill="none" stroke="#1c3a26" stroke-width="3" stroke-dasharray="4 4"/>
+  </g>
+</svg>

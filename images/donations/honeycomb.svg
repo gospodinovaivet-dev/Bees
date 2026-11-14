@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Square of honeycomb on a plate -->
+  <defs><radialGradient id="bg" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#fff4dc"/><stop offset="1" stop-color="#f3dcae"/></radialGradient></defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <ellipse cx="200" cy="340" rx="130" ry="16" fill="#1c3a26" opacity=".14"/>
+  
+  <ellipse cx="200" cy="300" rx="150" ry="36" fill="#fff" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  <ellipse cx="200" cy="296" rx="116" ry="24" fill="#f2efe6"/>
+  <path d="M100 150l40-30h160l-40 30z" fill="#f8c548" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M260 150l40-30v130l-40 40z" fill="#d9951a" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="100" y="150" width="160" height="140" fill="#f4b62c" stroke="#1c3a26" stroke-width="5" stroke-linejoin="round"/>
+  <g fill="#f8c548" stroke="#d9951a" stroke-width="4">
+    <path d="M130 170l14 8v16l-14 8-14-8v-16z"/><path d="M166 170l14 8v16l-14 8-14-8v-16z"/><path d="M202 170l14 8v16l-14 8-14-8v-16z"/><path d="M238 170l14 8v16l-14 8-14-8v-16z"/><path d="M148 202l14 8v16l-14 8-14-8v-16z"/><path d="M184 202l14 8v16l-14 8-14-8v-16z"/><path d="M220 202l14 8v16l-14 8-14-8v-16z"/><path d="M130 234l14 8v16l-14 8-14-8v-16z"/><path d="M166 234l14 8v16l-14 8-14-8v-16z"/><path d="M202 234l14 8v16l-14 8-14-8v-16z"/><path d="M238 234l14 8v16l-14 8-14-8v-16z"/>
+  </g>
+  <path d="M186 292c0 14 4 22 4 30" stroke="#f4b62c" stroke-width="10" stroke-linecap="round"/>
+</svg>

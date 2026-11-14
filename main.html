@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeeWorkers - Welcome to the hive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="main.css">
+  <script src="bees.js" defer></script>
+  <script src="site.js" defer></script>
+  <script src="trail.js" defer></script>
+</head>
+<!-- data-bee-link: clicking a flying bee invites you to that page -->
+<body class="main-page" data-bee-link="funfacts.html">
+  <!-- Page transition: lifts away when the page opens (see style.css) -->
+  <div class="curtain" aria-hidden="true"><img src="images/bees/bee-1.png" alt=""><span>Welcome to the hive</span></div>
+
+  <header class="site-header">
+    <!-- On this page Exit logs out and goes back to the login page -->
+    <button type="button" class="exit" id="exit-button" data-exit-to="index.html" data-logout>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Exit
+    </button>
+    <a class="brand" href="#top" data-scroll>
+      <img src="images/bees/bee-1.png" alt="">
+      <span>BeeWorkers</span>
+    </a>
+
+    <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="menu" id="site-menu" aria-label="Site">
+      <a href="#top" data-scroll>Home</a>
+      <a href="#about" data-scroll>About us</a>
+      <a href="#bosses" data-scroll>Our boss</a>
+      <a href="#team" data-scroll>Our workers</a>
+      <a href="#hives" data-scroll>Our hives</a>
+      <a href="donations.html">Donations</a>
+      <a href="funfacts.html">Fun Facts</a>
+      <button type="button" class="logout" id="logout">Log out</button>
+    </nav>
+  </header>
+
+  <main class="journey" id="top">
+    <!-- ---------- Hero ---------- -->
+    <section class="hero">
+      <img class="flower flower-d" src="images/flowers/flower-2.png" alt="">
+      <img class="flower flower-e" src="images/flowers/flower-10.png" alt="">
+
+      <div class="hero-content panel" data-bee-avoid data-trail-start>
+        <p class="hello" id="hello" hidden></p>
+        <h1 id="title" aria-label="Welcome to the hive">
+          <span class="line">Welcome to</span>
+          <span class="line">the hive</span>
+        </h1>
+        <svg class="underline" viewBox="0 0 400 24" aria-hidden="true" preserveAspectRatio="none">
+          <path d="M6 14C60 2 100 22 160 12S270 4 394 12" pathLength="1"/>
+        </svg>
+
+        <!-- Placeholder company text: replace with your own -->
+        <p class="intro">
+          BeeWorkers is a team of beekeepers, engineers and gardeners who look after
+          honeybee colonies out in the countryside. We give bees safe homes, plant
+          meadows full of food for them, and use smart, solar-powered hives to keep
+          every colony healthy.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#team" data-scroll>Meet the workers</a>
+          <a class="btn btn-honey" href="donations.html">Support a hive</a>
+        </div>
+      </div>
+
+      <a class="scroll-hint" href="#about" data-scroll>
+        About us
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </section>
+
+    <!-- ---------- About us: who we are, our workers and our hives, all in one ----------
+         All names, numbers and places below are made up: replace them with your own -->
+    <section class="about" id="about">
+      <!-- Who we are -->
+      <div class="about-part">
+        <img class="flower flower-f" src="images/flowers/flower-7.png" alt="">
+        <img class="flower flower-g" src="images/flowers/flower-14.png" alt="">
+
+        <div class="about-head panel" data-bee-avoid data-trail-cross>
+          <h2>About us</h2>
+          <p>
+            BeeWorkers started in 2019, when a few friends rescued a wild swarm from an old
+            shed and gave it a proper home. Today we look after 38 colonies in three
+            apiaries out in the countryside, far from busy roads and sprayed fields.
+          </p>
+          <p>
+            We're beekeepers, engineers and gardeners working side by side: the bees get
+            safe homes and plenty of flowers, and the farms and wild places around them get
+            busy pollinators.
+          </p>
+        </div>
+
+        <ul class="stats" data-bee-avoid>
+          <li><strong>38</strong> colonies</li>
+          <li><strong>3</strong> apiaries</li>
+          <li><strong>12,000 m²</strong> of wildflowers planted</li>
+          <li><strong>1.2 t</strong> of honey shared last year</li>
+        </ul>
+
+        <div class="about-grid">
+          <article class="about-card" data-bee-avoid>
+            <div class="about-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M16 3l11 6.5v13L16 29 5 22.5v-13z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M11 16h10M16 11v10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+            </div>
+            <h3>How we do it</h3>
+            <p>We keep our hives where bees thrive: quiet countryside spots next to forests, meadows and orchards.</p>
+            <ul>
+              <li>Health checks every week from spring to autumn</li>
+              <li>Solar-powered sensors that warn us about heat, cold or a hungry colony</li>
+              <li>We only take the extra honey, so the bees always keep enough for winter</li>
+              <li>New beekeepers learn from our team, hive by hive</li>
+            </ul>
+          </article>
+
+          <article class="about-card" data-bee-avoid>
+            <div class="about-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M16 27S4 19.5 4 11.5A6 6 0 0 1 16 9a6 6 0 0 1 12 2.5C28 19.5 16 27 16 27z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Why we do it</h3>
+            <p>Bees are in trouble, and without them a lot of the food and flowers we love would disappear.</p>
+            <ul>
+              <li>Meadows are shrinking, so bees find less food</li>
+              <li>Pesticides and parasites like the varroa mite weaken colonies</li>
+              <li>A single healthy colony can hold tens of thousands of bees</li>
+              <li>Every hive we save helps the plants and animals around it</li>
+            </ul>
+          </article>
+
+          <article class="about-card" data-bee-avoid>
+            <div class="about-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M5 13c5 1 6 4 10 3s4 4 2 7M19 5c-1 3 2 5 5 4s4 2 4 4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>How we help the planet</h3>
+            <p>Bees pollinate many of the fruits, vegetables and nuts we eat, and countless wild plants.</p>
+            <ul>
+              <li>Our bees pollinate orchards and fields around every apiary</li>
+              <li>We plant native wildflowers along field edges and in clearings</li>
+              <li>Our hive sensors run on solar power</li>
+              <li>We visit schools to teach kids how to help bees at home</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <!-- Our workers (photos in images/team/) -->
+      <div class="about-part" id="team">
+        <img class="flower flower-h" src="images/flowers/flower-1.png" alt="">
+
+        <div class="section-head panel" data-bee-avoid>
+          <h2>Our workers</h2>
+          <p>Engineers, gardeners and beekeepers: meet our boss and a few of the people who keep our hives buzzing.</p>
+        </div>
+
+        <!-- The boss (photo: images/team/boss.jpg). Made-up name and details: replace with your own -->
+        <article class="boss-card" id="bosses" data-bee-avoid>
+          <img src="images/team/boss.jpg" alt="Victor, smiling, in a checked shirt and jeans">
+          <div class="card-text">
+            <p class="boss-tag">👑 The boss</p>
+            <h3>Victor Hale</h3>
+            <p class="role">Founder &amp; Head Beekeeper</p>
+            <p>
+              Victor is the one who rescued that very first swarm from an old shed back in
+              2019, and he hasn't stopped since. He runs BeeWorkers, finds the land for new
+              apiaries, and makes the big decisions, like where the next bee base goes.
+            </p>
+            <p>
+              He still spends every Saturday morning with the bees, and says the best
+              meetings are the ones held next to a hive.
+            </p>
+            <ul class="facts">
+              <li>📍 Visits all three apiaries</li>
+              <li>🐝 Keeping bees for 20+ years</li>
+              <li>🍯 Loves acacia honey</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="card-grid">
+          <article class="person-card" data-bee-avoid>
+            <img src="images/team/maya.jpg" alt="Maya in a white hard hat and safety vest, working on a laptop next to solar panels" style="object-position: 62% 30%">
+            <div class="card-text">
+              <h3>Maya Petrova</h3>
+              <p class="role">Energy &amp; Sensor Engineer</p>
+              <p>
+                Maya keeps our apiaries running on sunshine. She installed the solar panels
+                that power every hive sensor, and built the dashboard that shows each
+                colony's temperature, humidity and weight, so we can spot trouble early.
+              </p>
+              <ul class="facts">
+                <li>📍 Valley Fields Apiary</li>
+                <li>☀️ Solar-powered sensors</li>
+                <li>🌻 Loves sunflowers</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="person-card" data-bee-avoid>
+            <img src="images/team/leo.jpg" alt="Leo in a yellow hard hat, goggles and overalls, holding a wrench" style="object-position: 50% 25%">
+            <div class="card-text">
+              <h3>Leo Brandt</h3>
+              <p class="role">Hive Engineer</p>
+              <p>
+                Leo builds and repairs everything in our apiaries: hive boxes, stands,
+                frames and the honey extractor. If something squeaks, wobbles or leaks,
+                he's already on his way with a wrench.
+              </p>
+              <ul class="facts">
+                <li>📍 Forest Edge Apiary</li>
+                <li>🔧 Built 60+ hive boxes</li>
+                <li>🌳 Loves linden blossom</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="person-card" data-bee-avoid>
+            <img src="images/team/rosa.jpg" alt="Rosa smiling in a flower shop, holding a big bouquet" style="object-position: 60% 30%">
+            <div class="card-text">
+              <h3>Rosa Ilieva</h3>
+              <p class="role">Florist &amp; Meadow Designer</p>
+              <p>
+                Rosa decides what grows around our hives. She plans wildflower strips, herbs
+                and flowering trees so something is always in bloom from early spring to
+                late autumn, and she makes the bouquets for our honey market.
+              </p>
+              <ul class="facts">
+                <li>📍 Oak Wood Apiary</li>
+                <li>🌸 Knows 200+ flowers</li>
+                <li>💜 Loves lavender</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Our hives (photos in images/hives/). The trail bee lands in this part. -->
+      <div class="about-part" id="hives" data-trail-end data-trail-say="These are our hives!">
+        <img class="flower flower-i" src="images/flowers/flower-15.png" alt="">
+
+        <div class="section-head panel" data-bee-avoid>
+          <h2>Our hives</h2>
+          <p>
+            All our apiaries are out in the countryside, beside forests, meadows and farms,
+            where bees have clean air, fresh water and flowers all season long.
+          </p>
+        </div>
+
+        <div class="card-grid" data-trail-band>
+          <article class="hive-card" data-bee-avoid>
+            <img src="images/hives/forest-edge.jpg" alt="Colourful wooden beehives standing in tall grass in front of trees" style="object-position: 50% 60%">
+            <div class="card-text">
+              <h3>Forest Edge Apiary</h3>
+              <p class="role">📍 Sunny clearing by the forest</p>
+              <p>
+                Our oldest apiary: hand-painted hives in a sheltered clearing. The trees
+                block the wind, and the acacia and linden trees nearby give a light,
+                flowery honey.
+              </p>
+              <ul class="facts">
+                <li>12 colonies</li>
+                <li>Since 2019</li>
+                <li>Acacia &amp; linden honey</li>
+              </ul>
+              <div class="hive-location" data-base-info="forest"></div>
+            </div>
+          </article>
+
+          <article class="hive-card" data-bee-avoid>
+            <img src="images/hives/oak-wood.jpg" alt="A beekeeper in a yellow suit lifting a frame covered in bees out of a yellow hive" style="object-position: 50% 40%">
+            <div class="card-text">
+              <h3>Oak Wood Apiary</h3>
+              <p class="role">📍 Under the old oak trees</p>
+              <p>
+                A quiet, shady spot where we train new beekeepers. Here we do our most
+                careful health checks, frame by frame, and raise young queens for new
+                colonies.
+              </p>
+              <ul class="facts">
+                <li>8 colonies</li>
+                <li>Since 2021</li>
+                <li>Forest honey</li>
+              </ul>
+              <div class="hive-location" data-base-info="oak"></div>
+            </div>
+          </article>
+
+          <article class="hive-card" data-bee-avoid>
+            <img src="images/hives/valley-fields.jpg" alt="A beekeeper in a white suit among rows of green, white and purple hives in a sunny valley" style="object-position: 50% 55%">
+            <div class="card-text">
+              <h3>Valley Fields Apiary</h3>
+              <p class="role">📍 Between orchards and wildflower fields</p>
+              <p>
+                Our biggest apiary. In spring the bees pollinate the farmers' almond and
+                fruit orchards, and every hive here has a solar-powered sensor.
+              </p>
+              <ul class="facts">
+                <li>18 colonies</li>
+                <li>Since 2022</li>
+                <li>Wildflower honey</li>
+              </ul>
+              <div class="hive-location" data-base-info="valley"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="cta panel" data-bee-avoid>
+        <h2>Help us build the next bee base</h2>
+        <p>Give a little and get honey, candles or a carving as a thank-you, or come and lend a hand at one of our bases.</p>
+        <div class="hero-actions">
+          <a class="btn btn-honey" href="donations.html">Go to Donations</a>
+          <button type="button" class="btn" data-participate>Volunteer at a base</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Filled in by site.js (edit the bases and contacts there) -->
+  <footer class="site-footer" id="site-footer"></footer>
+
+  <!-- The flying bees are added here by bees.js -->
+  <div id="bee-layer" aria-hidden="true"></div>
+</body>
+</html>
