@@ -39,7 +39,7 @@ const CHATTER = [
   "Hi, hive!", "Pollen time!", "Waggle waggle", "Flap flap", "Un-bee-lievable!",
 ];
 
-const IMAGE_DIR = "images/bees/";
+const IMAGE_DIR = "static/images/bees/";
 const SIZE = 0.34;           // on-screen size compared to the image files
 const CLEARANCE = 14;        // gap kept between a bee and the things it avoids
 const AVOID_BAND = 70;       // how far away a bee starts steering away
